@@ -11,7 +11,7 @@ public class Main {
         while (!(line = scanner.nextLine()).equals("esc")){
             char[] chars = line.toCharArray();
             for (char ch: chars) {
-                char encryptChar = encryptor.encrypt(ch);
+                char encryptChar = encryptor.decode(ch);
                 System.out.print(encryptChar);
             }
             System.out.println("");
