@@ -1,4 +1,6 @@
-package ua.com.javarush.dhashuk.javarush_project_1;
+package ua.com.javarush.dhashuk.javarush_project_1.encryptors;
+
+import java.util.Arrays;
 
 public class CharEncryptor {
     private final char[] RU_ALPHABET = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к',
@@ -19,7 +21,8 @@ public class CharEncryptor {
     }
 
     public char decode(char cipherChar) {
-        if (isCharExistInAlphabet(cipherChar)) {
+        if (isCharExistInAlphabet(cipherChar)) {//todo если такой буквы нет то нужно выдать ошибку поскольку
+            //разшифровать такой текст неполучится, хотя это вопрос не все символы есть в моем алфавите
             int decodeOffset = displacement*-1;
             int newCharIndex = getNewCharIndex(cipherChar,decodeOffset);
             return RU_ALPHABET[newCharIndex];
@@ -50,7 +53,7 @@ public class CharEncryptor {
     }
 
     private boolean isCharExistInAlphabet(char originalChar){
-        return getAlphabetCharIndex(originalChar)!=-1;
+        return getAlphabetCharIndex(originalChar)>-1;
     }
 
 }
