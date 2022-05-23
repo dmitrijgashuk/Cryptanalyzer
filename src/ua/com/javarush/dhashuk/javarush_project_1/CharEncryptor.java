@@ -7,28 +7,35 @@ public class CharEncryptor {
 
     private int displacement;
 
-    public CharEncryptor(int displacement) {
-        this.displacement = displacement;
-    }
-
     public char encrypt(char originalChar) {
-        /* todo придумать новое название для переменной alphabetIndex,
-        *   учесть что ключь может быть отрицательным? логика в методах одинаковая вывести в один метод!! */
         if (isCharExistInAlphabet(originalChar)){
-            int alphabetCharIndex = getAlphabetCharIndex(originalChar);
-            int newCharIndex = (alphabetCharIndex + (displacement + RU_ALPHABET.length)) % RU_ALPHABET.length;
+            int cryptOffset = displacement;
+            int newCharIndex = getNewCharIndex(originalChar,cryptOffset);
             return RU_ALPHABET[newCharIndex];
         }
         return originalChar;
     }
 
-    public char decode(char cipherChar) {// todo метод работает неправильно, учесть что ключ может быть отрецательным
+    public char decode(char cipherChar) {
         if (isCharExistInAlphabet(cipherChar)) {
-            int index = getAlphabetCharIndex(cipherChar);
-            int codeLetterIndex = (index + (-displacement + RU_ALPHABET.length)) % RU_ALPHABET.length;
-            return RU_ALPHABET[codeLetterIndex];
+            int decodeOffset = displacement*-1;
+            int newCharIndex = getNewCharIndex(cipherChar,decodeOffset);
+            return RU_ALPHABET[newCharIndex];
         }
         return cipherChar;
+    }
+
+    public int getDisplacement() {
+        return displacement;
+    }
+
+    public void setDisplacement(int displacement) {
+        this.displacement = displacement;
+    }
+
+    private int getNewCharIndex(char letter,int offset) {
+        int alphabetCharIndex = getAlphabetCharIndex(letter);
+        return (alphabetCharIndex + (offset + RU_ALPHABET.length)) % RU_ALPHABET.length;
     }
 
     private int getAlphabetCharIndex(char letter) {
