@@ -1,10 +1,16 @@
 package ua.com.javarush.dhashuk.javarush_project_1.command;
 
+import ua.com.javarush.dhashuk.javarush_project_1.encryptor.CharEncryptor;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
-public class DecodeCommand extends Command{
+public class DecodeCommand extends Command {
 
     public DecodeCommand(String[] args) {
         super(args);
@@ -16,37 +22,38 @@ public class DecodeCommand extends Command{
     }
 
     private void decode(String[] args) {
-        if("-decode".equals(args[0])) {
-            if (args.length != 4) {
-                System.err.println("Invalid command line: parameters less or more then four " + Arrays.toString(args));
+
+        String inputFileName = args[1];
+
+        Path inputPath = Path.of(inputFileName);
+
+        String outputDecodeFileName = args[2];
+
+        int cesarKey = Integer.parseInt(args[3]);
+
+        Path outputPath = Path.of(outputDecodeFileName);
+// разница с в кодировании и декодировании толко в вызове одного метода
+        // нужно добавить клас обработки файлов и способ кодирования
+        try (BufferedReader reader = Files.newBufferedReader(inputPath);
+             BufferedWriter writer = Files.newBufferedWriter(outputPath, StandardOpenOption.WRITE)
+        ) {
+            CharEncryptor encryptor = new CharEncryptor();
+            encryptor.setDisplacement(cesarKey);
+            while (reader.ready()) {
+                String s = reader.readLine();
+                char[] chars = s.toCharArray();
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < s.length(); i++) {
+                    char encrypt = encryptor.decode(chars[i]);
+                    builder.append(encrypt);
+                }
+                builder.append('\n');
+                writer.write(builder.toString());
             }
-            String inputEncryptedFile = args[1];
-
-            Path pathInputFile = Path.of(inputEncryptedFile);
-
-            if(Files.notExists(pathInputFile)){
-                System.err.println("Error, file " + inputEncryptedFile + "not exist");
-                System.exit(1);
-            }
-
-            var isTxtFile = pathInputFile.getFileName().endsWith(".txt");
-            if(!isTxtFile){
-                System.err.println("File "+ inputEncryptedFile + " is not .txt file");
-                System.exit(1);
-            }
-
-            String outputDecodeFile = args[2];
-
-            String cesarKey = args[3];
-            int key = 0;
-            try{
-                key = Integer.parseInt(cesarKey);
-            } catch (NumberFormatException e) {
-                System.err.println("You enter invalid key, key have to positive or negative integer number");
-                System.exit(1);
-            }
-            // ??? Базовая логика обработки фалов и разкодированием текста
+        } catch (IOException e) {
+            System.err.println("Can't be read or write");
         }
+
     }
 
 

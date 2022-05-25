@@ -1,6 +1,4 @@
-package ua.com.javarush.dhashuk.javarush_project_1.encryptors;
-
-import java.util.Arrays;
+package ua.com.javarush.dhashuk.javarush_project_1.encryptor;
 
 public class CharEncryptor {
     private final char[] RU_ALPHABET = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к',

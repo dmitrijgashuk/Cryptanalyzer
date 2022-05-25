@@ -20,9 +20,4 @@ public class CryptoApp {
         handler.setCommand(programCommand);
         handler.execute();
     }
-
-
-
-
-
 }
