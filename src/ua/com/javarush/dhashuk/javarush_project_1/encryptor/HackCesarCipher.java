@@ -48,9 +48,9 @@ public class HackCesarCipher {
     private int getFrequency(List<String> decodeContent) {
         int frequency = 0;
         for (String fileLine : decodeContent) {
-            for (int j = 0; j < words.size(); j++) {
-                boolean contains = fileLine.contains(words.get(j));
-                if(contains){
+            for (String word : words) {
+                boolean contains = fileLine.contains(word);
+                if (contains) {
                     frequency++;
                 }
             }

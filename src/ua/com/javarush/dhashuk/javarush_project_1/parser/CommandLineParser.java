@@ -19,7 +19,6 @@ public class CommandLineParser  {
     private static final String ENCRYPT = "-encrypt";
     private static final String DECODE = "-decode";
     private static final String BRUTE_FORCE = "-hacking";
-    private static final String STATISTIC_ANALYSIS = "-analysis";
 
     private final String[] lineArguments;
 
