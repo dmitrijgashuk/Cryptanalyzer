@@ -1,13 +1,13 @@
 package ua.com.javarush.dhashuk.javarush_project_1;
 
 import org.junit.jupiter.api.Test;
-import ua.com.javarush.dhashuk.javarush_project_1.encryptor.CharEncryptor;
+import ua.com.javarush.dhashuk.javarush_project_1.encryptor.CesarEncryptor;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CharEncryptorTest {
 
-    private CharEncryptor encryptor = new CharEncryptor();
+    private CesarEncryptor encryptor = new CesarEncryptor();
 
     @Test
     void encryptPositiveDisplacement() {

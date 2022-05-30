@@ -19,5 +19,8 @@ public class HelpCommand extends Command {
         System.out.println("if you want to decode text in the file use :");
         System.out.println("[-decode] [name existing ciphered text file (.txt)] [name output file path " +
                 "(.txt)] [cipher key (positive or negative integer number)]");
+        System.out.println("");
+        System.out.println("if you want to brute force hacking text in the file use :");
+        System.out.println("[-hacking] [name existing ciphered text file (.txt)]");
     }
 }

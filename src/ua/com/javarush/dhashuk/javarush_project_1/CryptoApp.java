@@ -1,23 +1,19 @@
 package ua.com.javarush.dhashuk.javarush_project_1;
 
 import ua.com.javarush.dhashuk.javarush_project_1.command.Command;
-import ua.com.javarush.dhashuk.javarush_project_1.parser.ArgumentParser;
+import ua.com.javarush.dhashuk.javarush_project_1.encryptor.FileProcessorException;
+import ua.com.javarush.dhashuk.javarush_project_1.parser.CommandLineParser;
 import ua.com.javarush.dhashuk.javarush_project_1.parser.WrongArgumentException;
-import ua.com.javarush.dhashuk.javarush_project_1.processor.CommandHandler;
 
 public class CryptoApp {
     public static void main(String[] args) {
-        ArgumentParser argumentParser = new ArgumentParser(args);
-        Command programCommand =  null;
+        CommandLineParser commandLineParser = new CommandLineParser(args);
         try {
-            programCommand = argumentParser.getCommand();
-        } catch (WrongArgumentException e) {
+            Command programCommand = commandLineParser.getCommand();
+            programCommand.execute();
+        } catch (WrongArgumentException | FileProcessorException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
-        CommandHandler handler = new CommandHandler();
-        handler.setCommand(programCommand);
-        handler.execute();
     }
 }
